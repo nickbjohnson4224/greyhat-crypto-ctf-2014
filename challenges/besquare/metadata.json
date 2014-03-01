@@ -1,0 +1,15 @@
+{
+	"author": "Robert Grosse",
+	"description": ""
+
+	"points": 1000,
+	"flag": "key{IfOnlyIHadn'tAssumedItWasComposite}",
+
+	"public_files": [
+		"besquare.py"
+	],
+	
+	"runnable": true,
+	"run_type": "tcpserver"
+	"run_command": "python besquare.py %(host)s %(port)s",
+}

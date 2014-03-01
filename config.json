@@ -1,0 +1,11 @@
+{
+	"__default__": {
+		"host": "0.0.0.0"
+	},
+
+	"besquare": {
+		"visible": true,
+		"active": true,
+		"port": 9000
+	}
+}

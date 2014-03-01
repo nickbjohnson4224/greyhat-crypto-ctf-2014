@@ -1,0 +1,15 @@
+{
+	"author": "Nick Johnson",
+	"description": ""
+
+	"points": 500,
+	"flag": "965a27ba7328b453",
+
+	"public_files": [
+		"rj1.py"
+	],
+
+	"runnable": true,
+	"run_type": "tcpserver",
+	"run_command": "python server.py %(host)s %(port)s",
+}
