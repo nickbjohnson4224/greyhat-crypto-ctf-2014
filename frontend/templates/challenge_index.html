@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}Challenge List{% end %}
+
+{% block body %}
+  {% for challenge_name in challenges %}
+    <a href="/challenges/{{challenge_name}}">{{challenge_name}}</a><br>
+  {% end %}
+{% end %}

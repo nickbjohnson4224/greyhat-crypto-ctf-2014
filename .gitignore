@@ -1,0 +1,8 @@
+*.swp
+*.swo
+*.pyc
+*.pyo
+var/log/
+var/monitor.pid
+venv/
+nohup.out

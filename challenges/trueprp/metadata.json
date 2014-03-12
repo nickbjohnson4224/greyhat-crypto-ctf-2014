@@ -1,0 +1,15 @@
+{
+	"name": "trueprp",
+	"uuid": "11303a27-6058-4bd1-a33a-4d4268751723",
+	"author": "Nick Johnson",
+	"description": ""
+
+	"points": 500,
+	
+	"public_files": [
+		"trueprp.py",
+		"ciphertext"
+	],
+
+	"runnable": false
+}

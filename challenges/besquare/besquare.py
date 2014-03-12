@@ -154,7 +154,7 @@ class ThreadedServer(SocketServer.ThreadingMixIn, SocketServer.TCPServer):
 	pass
 
 if __name__ ==  "__main__":
-	HOST, PORT = "localhost", int(sys.argv[1])
+	HOST, PORT = sys.argv[1], int(sys.argv[2])
 	print 'Running on port', PORT
 	server = ThreadedServer((HOST, PORT), HandleCheckin)
 	server.allow_reuse_address = True

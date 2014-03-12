@@ -1,8 +1,7 @@
 import sys, struct, array
 import SocketServer
-import StringIO as StringIO
-
-import pygame
+# import StringIO as StringIO
+# import pygame
 
 p = 0x08d682598db70a889ff1bc7e3e00d602e9fe9e812162d4e3d06954b2ff554a4a21d5f0aab3eae5c49ac1aec7117709cba1b88b79ae9805d28ddb99be07ba05ea219654afe0c8dddac7e73165f3dcd851a3c8a3b6515766321420aff177eaaa7b3da39682d7e773aa863a729706d52e83a1d0e34d69b461c837ed239745d6c50f124e34f4d1d00ad15d6ebabda8c189c7b8b35b5bae7a9cbafc5f09bd506a39bd9d2d9245324f02ff7254fab4ab17f7a165d49e318baeb8effc4e1a3f1251d2ea1ab93f767bd6dcf5567406550ea1f194ef7deb1b2fec8b30520b6777fea1b305593db941f9ad8ce1eba6f77c3a104bd97448ec0c11688c5bf82e85c90234abfc5
 q = 0x0f67e886d1a0d1e59a53b4aa831c9bcb39a5d0a8f
@@ -31,10 +30,9 @@ def superHash(b):
 	h = (len(b) + 1) * (len(b) ^ 42)
 	x = 88172645463325252
 	for i, c in enumerate(array.array('H', b)):
-		x ^= (x<<13)
-		x ^= (x>>7)
-		x ^= (x<<17)
-		x &= 0xFFFFFFFFFFFFFFFF
+		x ^= (x<<13) & 0xFFFFFFFFFFFFFFFF
+		x ^= (x>>7)  & 0xFFFFFFFFFFFFFFFF
+		x ^= (x<<17) & 0xFFFFFFFFFFFFFFFF
 
 		h += c * (((i % 7) + 9) ** (i % 25))
 		if i % 2:
@@ -91,20 +89,25 @@ class HandleCheckin(SocketServer.BaseRequestHandler):
 			return
 		else:
 			req.sendall("Success!\n")
+
+			if "Secret backdoor lol GIMME THE FLAG" in sound:
+				with open('flag.txt','r') as f:
+					req.sendall(f.read() + "\n")
+			else:
+				req.sendall("Unfortunately, the musicbox is not available at the moment.\n")
 			req.close()
 
-		f = StringIO.StringIO(sound)
-		pygame.mixer.music.load(f)
-		pygame.mixer.music.play(loops=-1)
-
+		# f = StringIO.StringIO(sound)
+		# pygame.mixer.music.load(f)
+		# pygame.mixer.music.play(loops=-1)
 
 class ThreadedServer(SocketServer.ThreadingMixIn, SocketServer.TCPServer):
 	pass
 
 if __name__ ==  "__main__":
-	pygame.mixer.init()
+	# pygame.mixer.init()
 
-	HOST, PORT = "localhost", int(sys.argv[1])
+	HOST, PORT = sys.argv[1], int(sys.argv[2])
 	print 'Running on port', PORT
 	server = ThreadedServer((HOST, PORT), HandleCheckin)
 	server.allow_reuse_address = True

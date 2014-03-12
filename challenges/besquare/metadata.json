@@ -1,15 +1,12 @@
 {
-	"author": "Robert Grosse",
-	"description": ""
+    "name": "besquare",
+    "author": "Robert Grosse (code adapated from challenge by Ben Agre)",
+    "description": "",
+    "points": 500,
+    "flag": "Should have checked for primality",
 
-	"points": 1000,
-	"flag": "key{IfOnlyIHadn'tAssumedItWasComposite}",
-
-	"public_files": [
-		"besquare.py"
-	],
-	
-	"runnable": true,
-	"run_type": "tcpserver"
+    "run_type": "tcpserver",
 	"run_command": "python besquare.py %(host)s %(port)s",
+
+    "public_files": ["besquare.py"]
 }
