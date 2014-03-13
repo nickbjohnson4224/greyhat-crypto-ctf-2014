@@ -2,7 +2,7 @@
 
 {% block title %}Challenge List{% end %}
 
-{% block body %}
+{% block content %}
   {% for challenge_name in challenges %}
     <a href="/challenges/{{challenge_name}}">{{challenge_name}}</a><br>
   {% end %}

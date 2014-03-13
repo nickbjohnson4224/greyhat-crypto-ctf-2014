@@ -42,9 +42,6 @@ class TruePRP(object):
         Encrypt using CBC mode with the generated table as the block cipher.
         """
 
-        # convert any Unicode characters to UTF-8
-        message = message.encode('utf-8')
-
         # pad to multiple of block size
         if len(message) % 2 == 0:
             message += '\x02\x02'

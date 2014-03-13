@@ -1,10 +1,37 @@
 <!doctype html>
 <html>
   <head>
-    <title>{% block title %}{% end %}</title>
+    <link rel="stylesheet" href="/static/style.css"/>
+    <title>Grey Hat Crypto CTF 2014 - {% block title %}{% end %}</title>
   </head>
   <body>
-    {% block body %}
-    {% end %}
+    <div id="header" class="center">
+      <h1>Grey Hat Crypto CTF 2014</h1>
+      {% block header %}{% end %}
+    </div>
+
+    <div id="navbar" class="center">
+      <div onclick="window.location='/challenges'"
+       class="navitem challenges {{ 'selected' if selected == 'challenges' else '' }}">
+        Challenges
+      </div>
+      <div onclick="window.location='/scoreboard'"
+       class="navitem scoreboard {{ 'selected' if selected == 'scoreboard' else '' }}">
+        Scoreboard
+      </div>
+      
+      <!--<div class="box black navitem float-right" onclick="window.location='/logout'">
+        Log Out
+      </div>
+      <div class="box blue float-right">
+        User: {{ user }}
+      </div>-->
+    </div>
+
+    <div id="content" class="center">
+      {% block content %}{% end %}
+    </div>
+
+    {% block extra_js %}{% end %}
   </body>
 </html>

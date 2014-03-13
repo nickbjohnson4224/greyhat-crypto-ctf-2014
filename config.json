@@ -5,7 +5,6 @@
 
 	"besquare": {
 		"visible": true,
-		"active": true,
-		"port": 7000
+		"active": true
 	}
 }

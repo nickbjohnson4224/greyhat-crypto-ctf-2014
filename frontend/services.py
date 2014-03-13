@@ -30,8 +30,11 @@ class HTTPServiceProxy(object):
                 del self._cache[path]
             return None
 
-    def post(self, data='', *path):
-        pass
+    def post(self, *path):
+        url = 'http://%s:%d/%s' % (self._host, self._port, '/'.join(path))
+        print url
+        request = tornado.httpclient.HTTPRequest(url, method='POST', body='')
+        http_client.fetch(request)
 
 class MonitorProxy(HTTPServiceProxy):
     """
@@ -39,17 +42,27 @@ class MonitorProxy(HTTPServiceProxy):
     """
 
     def __init__(self):
-        super(MonitorProxy, self).__init__(host='localhost', port=6999, cache_timeout=5.0)
+        super(MonitorProxy, self).__init__(host='localhost', port=6999, cache_timeout=0.0)
         
     @property
     def challenges(self):
         return json.loads(self.get('list'))
     
+    @property
+    def visible_challenges(self):
+        return json.loads(self.get('list_visible'))
+
     def status(self, challenge):
         try:
             return json.loads(self.get('status')).get(challenge, None)
         except TypeError:
             return None
+
+    def show(self, challenge):
+        self.post('show', challenge)
+
+    def hide(self, challenge):
+        self.post('hide', challenge)
 
     def start(self, challenge):
         self.post('start', challenge)
@@ -62,6 +75,9 @@ class MonitorProxy(HTTPServiceProxy):
             return json.loads(self.get('metadata', challenge))
         except TypeError:
             return None
+
+    def fetch_file(self, challenge, filename):
+        return self.get('static_files', challenge, filename)
 
 monitor = MonitorProxy()
 
@@ -76,6 +92,9 @@ class AuthProxy(HTTPServiceProxy):
     @property
     def users(self):
         return json.loads(self.get('list'))
+
+    def is_admin(self, user):
+        return True
 
     def set_password(self, user, password):
         pass # TODO

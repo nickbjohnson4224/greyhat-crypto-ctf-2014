@@ -31,8 +31,3 @@ def encrypt(message, pub):
 
 def decrypt(cipher, pub, priv):
     return ''.join(decryptBlock(block, pub, priv) for block in cipher)
-
-# priv = json.load(open('private','r'))
-# pub = json.load(open('public','r'))
-# cipher = json.load(open('encrypted','r'))
-# print decrypt(cipher, pub, priv)
