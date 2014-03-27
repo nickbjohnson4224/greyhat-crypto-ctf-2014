@@ -54,9 +54,39 @@ h2 {
 
 /* imported */
 
+#userheader {
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  margin-left: -450px;
+  width: 900px;
+  height: 50px;
+
+  background-color: black;
+  color: white;
+}
+
+#userheader div {
+  margin: 15px;
+}
+
+#userheader input {
+  background-color: black;
+  border: 0px;
+  margin-top: -3px;
+  margin-left: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  box-shadow: none;
+
+  font-family: "Lucida Console", Monaco, monospace;
+  font-size: 16px;
+  color: white;
+}
+
 #header {
   position: absolute;
-  top: 40px;
+  top: 90px;
   left: 50%;
   margin-left: -450px;
   width: 896px;
@@ -68,7 +98,7 @@ h2 {
 
 #navbar {
   position: absolute;
-  top: 150px;
+  top: 200px;
   left: 50%;
   margin-left: -450px;
   width: 900px;
@@ -111,7 +141,7 @@ h2 {
 
 #content {
   position: absolute;
-  top: 200px;
+  top: 250px;
   left: 50%;
   margin-left: -450px;
   width: 816px;

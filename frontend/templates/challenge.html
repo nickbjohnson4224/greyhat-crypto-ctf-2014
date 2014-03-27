@@ -20,6 +20,13 @@
         {% end %}
       </ul>
     {% end %}
+    {% if show_capture %}
+      <form method="post">
+        <input type="hidden" name="action" value="capture">
+        Flag: <input type="text" name="flag">
+        <input type="submit" value="Capture">
+      </form>
+    {% end %}
   </div>
   <div class="float-right">
     {% raw status %}

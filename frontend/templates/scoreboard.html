@@ -3,12 +3,13 @@
 {% block title %}Scoreboard{% end %}
 
 {% block content %}
-  <table style="margin-left:95px">
+  <table style="margin-left:20px">
     <tr>
       <th style="width:150px">Rank</th>
       <th style="width:150px">Username</th>
       <th style="width:150px">Score</th>
       <th style="width:150px">Captures</th>
+      <th style="width:150px">Last Capture</th>
     </tr>
     {% for i in xrange(len(scoreboard)) %}
       {% set scoreboard_entry = scoreboard[i] %}
@@ -17,6 +18,7 @@
         <td>{{ scoreboard_entry['user'] }}</td>
         <td>{{ scoreboard_entry['score'] }}</td>
         <td>{{ scoreboard_entry['captures'] }}</td>
+        <td>{{ scoreboard_entry['last_time'] }}</td>
       </tr>
     {% end %}
   </table>

@@ -6,10 +6,9 @@
   <table style="margin-left:20px">
     <tr>
       <th style="width:150px">Name</th>
-      <th style="width:150px">Points</th>
+      <th style="width:200px">Points</th>
       <th style="width:150px">Captures</th>
-      <th style="width:150px">Captured?</th>
-      <th style="width:150px">Status</th>
+      <th style="width:250px">Status</th>
     </tr>
     {% for challenge in challenges %}
       <tr style="text-align:center">
@@ -17,9 +16,8 @@
           <a href="/challenges/{{challenge['name']}}">{{challenge['name']}}</a><br>
         </td>
         <td>{{ challenge['points'] }}</td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>{{ challenge['captures'] }}</td>
+        <td>{% raw challenge['status'] %}</td>
       </tr>
     {% end %}
   </table>

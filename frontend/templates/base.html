@@ -5,6 +5,28 @@
     <title>Grey Hat Crypto CTF 2014 - {% block title %}{% end %}</title>
   </head>
   <body>
+    <div id="userheader" class="center">
+      {% if not user %}
+        <div class="float-right"></div>
+        <div class="float-right" onclick="window.location='/login'">
+          Log In
+        </div>
+        <div class="float-right">|</div>
+        <div class="float-right" onclick="window.location='/create_user'">
+          Create User
+        </div>
+      {% else %}
+        <div class="float-right"></div>
+        <div class="float-right">
+          User: {{ user }}
+        </div>
+        <div class="float-right">|</div>
+        <div class="float-right">
+          <form action="/logout" method="post"><input type="submit" value="Log Out"></form>
+        </div>
+      {% end %}
+    </div>
+
     <div id="header" class="center">
       <h1>Grey Hat Crypto CTF 2014</h1>
       {% block header %}{% end %}
@@ -19,13 +41,6 @@
        class="navitem scoreboard {{ 'selected' if selected == 'scoreboard' else '' }}">
         Scoreboard
       </div>
-      
-      <!--<div class="box black navitem float-right" onclick="window.location='/logout'">
-        Log Out
-      </div>
-      <div class="box blue float-right">
-        User: {{ user }}
-      </div>-->
     </div>
 
     <div id="content" class="center">
