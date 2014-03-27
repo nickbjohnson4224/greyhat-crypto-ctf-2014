@@ -30,11 +30,15 @@ class HTTPServiceProxy(object):
                 del self._cache[path]
             return None
 
-    def post(self, *path):
+    def post(self, *path, **kwargs):
         url = 'http://%s:%d/%s' % (self._host, self._port, '/'.join(path))
         print url
-        request = tornado.httpclient.HTTPRequest(url, method='POST', body='')
-        http_client.fetch(request)
+		try:
+	        request = tornado.httpclient.HTTPRequest(url, method='POST', body=json.dumps(kwargs))
+	        response = http_client.fetch(request)
+			return response.body
+		except tornado.httpclient.HTTPError as e:
+			return None
 
 class MonitorProxy(HTTPServiceProxy):
     """
@@ -93,10 +97,41 @@ class AuthProxy(HTTPServiceProxy):
     def users(self):
         return json.loads(self.get('list'))
 
+    def create_user(self, user):
+		self.post('create_user', user)
+
     def is_admin(self, user):
-        return True
+		return json.loads(self.get('get_tag', user, key='is_admin'))
 
     def set_password(self, user, password):
-        pass # TODO
+		self.post('set_password', user, password=password)
+
+	def check_password(self, user, password):
+		return json.loads(self.post('check_password', user, password=password))
+
+	def set_tag(self, user, key, value):
+		self.post('set_tag', user, key=key, value=json.dumps(value))
+
+	def get_tag(self, user, key, default=''):
+		return self.post('get_tag', user, key=key, default=default)
 
 auth = AuthProxy()
+
+class ScoreboardProxy(HTTPServiceProxy):
+	"""
+	Proxy object for the scoreboard service.
+	"""
+
+	def __init__(self, host='127.0.0.1', port=6997, cache_timeout=1.0):
+		super(ScoreboardProxy, self).__init__(host='localhost', port=6997, cache_timeout=1.0)
+
+	def capture(self, user, challenge):
+		self.post('capture', challenge, user=user)
+
+	def get_captures_by_user(self, user):
+		return json.loads(self.get('get_catpures_by_user', user))
+
+	def get_captures_by_challenge(self, user, challenge):
+		return json.loads(self.get('get_captures_by_challenge', challenge))
+	
+scoreboard = ScoreboardProxy()

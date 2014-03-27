@@ -3,7 +3,24 @@
 {% block title %}Challenge List{% end %}
 
 {% block content %}
-  {% for challenge_name in challenges %}
-    <a href="/challenges/{{challenge_name}}">{{challenge_name}}</a><br>
-  {% end %}
+  <table style="margin-left:20px">
+    <tr>
+      <th style="width:150px">Name</th>
+      <th style="width:150px">Points</th>
+      <th style="width:150px">Captures</th>
+      <th style="width:150px">Captured?</th>
+      <th style="width:150px">Status</th>
+    </tr>
+    {% for challenge in challenges %}
+      <tr style="text-align:center">
+        <td>
+          <a href="/challenges/{{challenge['name']}}">{{challenge['name']}}</a><br>
+        </td>
+        <td>{{ challenge['points'] }}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    {% end %}
+  </table>
 {% end %}

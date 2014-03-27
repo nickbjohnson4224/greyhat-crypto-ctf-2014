@@ -175,6 +175,19 @@ input.submit:active {
   background-color: #ddd;
 }
 
+table {
+  border-collapse: collapse;
+}
+
+td {
+  padding: 6px;
+  border-top: 2px solid black;
+}
+
+tr:nth-child(even) {
+  background: #eee;
+}
+
 /* generic attributes */
 
 .clear {

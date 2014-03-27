@@ -49,10 +49,21 @@ class ChallengeIndexHandler(RequestHandler):
         else:
             challenge_list = monitor.visible_challenges
 
+        metadata = { name : monitor.metadata(name) for name in challenge_list }
+        challenge_list = sorted(challenge_list, key=lambda n: (metadata[n]['points'], n))
+
+        challenges = [
+            {
+                'name' : name,
+                'points' : metadata[name]['points']
+            }
+            for name in challenge_list
+        ]
+
         self.render('templates/challenge_index.html',
             user='trace',
             selected='challenges',
-            challenges=sorted(challenge_list)
+            challenges=challenges
         )
 
 class ChallengePageHandler(RequestHandler):
@@ -178,10 +189,16 @@ class ChallengeFilesHandler(RequestHandler):
 #
 
 class ScoreboardHandler(RequestHandler):
-    template = 'scoreboard.html'
 
     def get(self):
-        pass # TODO
+        self.render('templates/scoreboard.html',
+            user='trace',
+            selected='scoreboard',
+            scoreboard=[
+                {'user':'trace', 'score':10000, 'captures':42},
+                {'user':'trace', 'score':10000, 'captures':42}
+            ]
+        )
 
 #
 # Users and authentication
@@ -222,7 +239,8 @@ if __name__ == '__main__':
             (r'/', IndexHandler),
             (r'/challenges/?', ChallengeIndexHandler),
             (r'/challenges/([A-Za-z0-9_-]+)', ChallengePageHandler),
-            (r'/challenges/([A0Za-z0-9_-]+)/(.*)', ChallengeFilesHandler)
+            (r'/challenges/([A0Za-z0-9_-]+)/(.*)', ChallengeFilesHandler),
+            (r'/scoreboard/?', ScoreboardHandler)
         ],
         debug=True,
         static_path='static',
