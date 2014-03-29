@@ -7,7 +7,7 @@
     "name": "history4",
     "public_files": [
         "key.txt",
-        "plaintext.txt"
+        "ciphertext.txt"
     ],
     "hints": [
         "If only Neal Stephenson were here!"

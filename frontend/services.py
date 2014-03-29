@@ -102,10 +102,16 @@ class AuthProxy(HTTPServiceProxy):
         self.post('create_user', user)
 
     def is_admin(self, user):
-        return json.loads(self.post('get_tag', user, key='is_admin', default='false'))
+        try:
+            return json.loads(self.post('get_tag', user, key='is_admin', default='false'))
+        except (ValueError, TypeError):
+            return False
 
     def is_playing(self, user):
-        return json.loads(self.post('get_tag', user, key='is_playing', default='true'))
+        try:
+            return json.loads(self.post('get_tag', user, key='is_playing', default='true'))
+        except (ValueError, TypeError):
+            return False
 
     def set_password(self, user, password):
         self.post('set_password', user, password=password)

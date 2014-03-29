@@ -173,10 +173,10 @@ select {
 }
 
 input {
-  border: 1px;
+/*  border: 1px; */
   margin: .25em;
   background-color: white;
-  padding: .2em;
+/*  padding: .2em; */
   padding-left: .3em;
   font-family: "Lucida Console", Monaco, monospace;
   font-size: 18px;

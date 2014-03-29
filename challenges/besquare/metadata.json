@@ -1,7 +1,7 @@
 {
     "name": "besquare",
     "author": "Robert Grosse (code adapated from challenge by Ben Agre)",
-    "description": "",
+    "description": "Although the code is similar to the CSAW challenge, the attack required is completely different...",
     "points": 500,
     "flag": "Should have checked for primality",
 

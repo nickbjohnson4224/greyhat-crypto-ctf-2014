@@ -164,7 +164,7 @@ class ChallengePageHandler(RequestHandler):
             challenge_points=metadata.get('points', 0),
             challenge_solves=len(scoreboard.get_captures_by_challenge(challenge)),
             challenge_description=metadata.get('description', ''),
-            show_capture=auth.is_playing(self.user),
+            show_capture=auth.is_playing(self.user or ''),
             status=status_widget,
         )
 
@@ -257,16 +257,16 @@ class ScoreboardCache(object):
 
             user_points = 0
             user_captures = 0
-            user_last_capture_timestamp = 0.0
+            user_last_capture_timestamp = float('-inf')
             for challenge, timestamp in scoreboard.get_captures_by_user(user):
                 user_captures += 1
                 user_points += challenge_points[challenge]
-                if user_last_capture_timestamp > timestamp:
-                    user_last_capture_timestamp = timestamp
+                if user_last_capture_timestamp < float(timestamp):
+                    user_last_capture_timestamp = float(timestamp)
 
             entries.append((user, user_points, user_captures, user_last_capture_timestamp))
         
-        self.scoreboard_list = sorted(entries, key=lambda e: (e[1], -e[3]))
+        self.scoreboard_list = sorted(entries, key=lambda e: (e[1], -e[3]), reverse=True)
 
 scoreboard_cache = ScoreboardCache()
 
@@ -281,8 +281,8 @@ class ScoreboardHandler(RequestHandler):
                     'user': entry[0],
                     'score': entry[1],
                     'captures': entry[2],
-                    'last_time': datetime.datetime.fromtimestamp(entry[3]).isoformat() 
-                        if entry[3] != 0.0 else 'N/A'
+                    'last_time': datetime.datetime.fromtimestamp(entry[3]).isoformat().replace('T', ' ')
+                        if entry[3] != float('-inf') else 'N/A'
                 }
                 for entry in scoreboard_cache.scoreboard_list
             ]
@@ -376,7 +376,6 @@ if __name__ == '__main__':
             (r'/logout', UserLogoutHandler),
             (r'/create_user', UserCreateHandler)
         ],
-        debug=True,
         static_path='static',
         cookie_secret=cookie_secret
     )
